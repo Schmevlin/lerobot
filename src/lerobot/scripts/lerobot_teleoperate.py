@@ -76,6 +76,7 @@ from lerobot.robots import (  # noqa: F401
     make_robot_from_config,
     so100_follower,
     so101_follower,
+    lerobot_robot_wx250s_follower
 )
 from lerobot.teleoperators import (  # noqa: F401
     Teleoperator,
@@ -87,11 +88,13 @@ from lerobot.teleoperators import (  # noqa: F401
     make_teleoperator_from_config,
     so100_leader,
     so101_leader,
+    lerobot_teleoperator_wx250s_leader
 )
 from lerobot.utils.import_utils import register_third_party_devices
 from lerobot.utils.robot_utils import busy_wait
 from lerobot.utils.utils import init_logging, move_cursor_up
 from lerobot.utils.visualization_utils import init_rerun, log_rerun_data
+
 
 
 @dataclass

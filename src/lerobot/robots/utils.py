@@ -24,7 +24,10 @@ from .robot import Robot
 
 def make_robot_from_config(config: RobotConfig) -> Robot:
     # TODO(Steven): Consider just using the make_device_from_device_class for all types
-    if config.type == "koch_follower":
+    if config.type == "wx250s_follower":
+        from .lerobot_robot_wx250s_follower import WX250SFollower
+        return WX250SFollower(config)
+    elif config.type == "koch_follower":
         from .koch_follower import KochFollower
 
         return KochFollower(config)
