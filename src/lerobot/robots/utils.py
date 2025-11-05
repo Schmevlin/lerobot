@@ -27,6 +27,10 @@ def make_robot_from_config(config: RobotConfig) -> Robot:
     if config.type == "wx250s_follower":
         from .lerobot_robot_wx250s_follower import WX250SFollower
         return WX250SFollower(config)
+    elif config.type == "wx250s":
+        from .wx250s import WX250S
+
+        return WX250S(config)
     elif config.type == "koch_follower":
         from .koch_follower import KochFollower
 

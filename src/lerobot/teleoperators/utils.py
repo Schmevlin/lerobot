@@ -36,6 +36,10 @@ def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
     if config.type == "wx250s_leader":
         from .lerobot_teleoperator_wx250s_leader import WX250SLeader
         return WX250SLeader(config)
+    elif config.type == "gamepad_wx250s":
+        from .wx250s_tele.teleop_gamepad_wx250s import GamepadWX250STeleop
+
+        return GamepadWX250STeleop(config)
     elif config.type == "keyboard":
         from .keyboard import KeyboardTeleop
 

@@ -84,7 +84,6 @@ class WX250SLeader(Teleoperator):
     def get_action(self) -> dict[str, Any]:
 
         actions = self.bot.arm.get_joint_positions()
-        print("leader joint positions:", actions)
 
         action_dict = {
             "waist": actions[0],

@@ -98,6 +98,7 @@ from lerobot.robots import (  # noqa: F401
     make_robot_from_config,
     so100_follower,
     so101_follower,
+    lerobot_robot_wx250s_follower
 )
 from lerobot.teleoperators import (  # noqa: F401
     Teleoperator,
@@ -108,6 +109,7 @@ from lerobot.teleoperators import (  # noqa: F401
     make_teleoperator_from_config,
     so100_leader,
     so101_leader,
+    lerobot_teleoperator_wx250s_leader
 )
 from lerobot.teleoperators.keyboard.teleop_keyboard import KeyboardTeleop
 from lerobot.utils.constants import ACTION, OBS_STR
