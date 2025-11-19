@@ -49,7 +49,7 @@ class WX250SLeader(Teleoperator):
             "forearm_roll": float,
             "wrist_angle": float,
             "wrist_rotate": float,
-            "gripper": bool
+            "gripping": float,
         }
     @property
     def feedback_features(self) -> dict:
@@ -92,7 +92,7 @@ class WX250SLeader(Teleoperator):
             "forearm_roll": actions[3],
             "wrist_angle": actions[4],
             "wrist_rotate": actions[5],
-            "gripper": self.gripper_command
+            "gripping": 1.0 if self.gripper_command else 0.0,
         }
 
         return action_dict

@@ -52,7 +52,7 @@ class WX250SFollower(Robot):
             "forearm_roll": float,
             "wrist_angle": float,
             "wrist_rotate": float,
-            "gripper": bool
+            "gripping": float,
         }
     @property
     def _cameras_ft(self) -> dict[str, tuple]:
@@ -105,6 +105,7 @@ class WX250SFollower(Robot):
 
     def configure(self) -> None:
         print("Configured robot")
+        self.bot.gripper.set_pressure(1.0)
 
     def get_gripper_state(self) -> bool:
         effort = self.bot.gripper.get_gripper_effort()
@@ -131,12 +132,15 @@ class WX250SFollower(Robot):
         gripper_state = self.get_gripper_state()
 
         # print(f'{gripper_state} ef:{effort} pos:{finger_pos}')
+        obs_dict = {}
+        obs_dict["gripping"] = 1.0 if gripper_state else 0.0
 
         # Read arm position
         pos_list = self.bot.arm.get_joint_positions()
-        obs_dict = {self.joints[i] : pos_list[i] for i in range(6)}
+        for i in range(6):
+            obs_dict[self.joints[i]] = pos_list[i]
 
-        obs_dict['gripper'] = gripper_state
+        # obs_dict = {self.joints[i] : pos_list[i] for i in range(6)}
 
         # Capture images from cameras
         for cam_key, cam in self.cameras.items():
@@ -146,15 +150,15 @@ class WX250SFollower(Robot):
     
     def send_action(self, action: dict[str, Any]) -> dict[str, Any]:
 
-        gripper_goal = action["gripper"]
+        gripper_goal = action["gripping"]
         
-        if gripper_goal:
+        if gripper_goal > 0.5:
             self.bot.gripper.grasp(0)
         else:
             self.bot.gripper.release(0)
 
-        goal_pos = [val for _, val in action.items()]
-        arm_goal = goal_pos[:6]
+        goal_pos = dict(action.items())
+        arm_goal = [float(goal_pos[joint]) for joint in self.joints]
         success = self.bot.arm.set_joint_positions(arm_goal, moving_time=0.2, blocking=False)
         if not success:
             return {
@@ -164,7 +168,7 @@ class WX250SFollower(Robot):
                 "forearm_roll": 0,
                 "wrist_angle": 0,
                 "wrist_rotate": 0,
-                "gripper": gripper_goal
+                "gripping": 1.0 if gripper_goal else 0.0
             }
         
         return action
