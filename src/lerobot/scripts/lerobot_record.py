@@ -109,6 +109,8 @@ from lerobot.robots import (  # noqa: F401
     reachy2,
     so_follower,
     unitree_g1 as unitree_g1_robot,
+    
+    wx250s_follower
 )
 from lerobot.teleoperators import (  # noqa: F401
     Teleoperator,
@@ -123,6 +125,8 @@ from lerobot.teleoperators import (  # noqa: F401
     reachy2_teleoperator,
     so_leader,
     unitree_g1,
+    
+    wx250s_leader
 )
 from lerobot.teleoperators.keyboard.teleop_keyboard import KeyboardTeleop
 from lerobot.utils.constants import ACTION, OBS_STR
