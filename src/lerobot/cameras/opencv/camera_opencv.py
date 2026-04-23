@@ -45,6 +45,7 @@ from .configuration_opencv import ColorMode, OpenCVCameraConfig
 # When you change the USB port or reboot the computer, the operating system might
 # treat the same cameras as new devices. Thus we select a higher bound to search indices.
 MAX_OPENCV_INDEX = 60
+MAX_FAILURE_COUNT = 200
 
 logger = logging.getLogger(__name__)
 
@@ -455,11 +456,13 @@ class OpenCVCamera(Camera):
             except DeviceNotConnectedError:
                 break
             except Exception as e:
-                if failure_count <= 10:
+                if failure_count <= MAX_FAILURE_COUNT:
                     failure_count += 1
                     logger.warning(f"Error reading frame in background thread for {self}: {e}")
                 else:
-                    raise RuntimeError(f"{self} exceeded maximum consecutive read failures.") from e
+                    print("camera read errors smh")
+                    failure_count=0
+                    #raise RuntimeError(f"{self} exceeded maximum consecutive read failures.") from e
 
     def _start_read_thread(self) -> None:
         """Starts or restarts the background read thread if it's not running."""

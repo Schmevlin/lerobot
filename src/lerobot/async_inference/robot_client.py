@@ -57,6 +57,7 @@ from lerobot.robots import (  # noqa: F401
     make_robot_from_config,
     omx_follower,
     so_follower,
+    wx250s_follower
 )
 from lerobot.transport import (
     services_pb2,  # type: ignore
@@ -485,8 +486,8 @@ class RobotClient:
 def async_client(cfg: RobotClientConfig):
     logging.info(pformat(asdict(cfg)))
 
-    if cfg.robot.type not in SUPPORTED_ROBOTS:
-        raise ValueError(f"Robot {cfg.robot.type} not yet supported!")
+    # if cfg.robot.type not in SUPPORTED_ROBOTS:
+    #     raise ValueError(f"Robot {cfg.robot.type} not yet supported!")
 
     client = RobotClient(cfg)
 

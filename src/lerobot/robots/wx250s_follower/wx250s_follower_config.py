@@ -13,19 +13,19 @@ class WX250SFollowerConfig(RobotConfig):
     port: str = None
     cameras: dict[str, CameraConfig] = field(
         default_factory= lambda: {
-            "camera1": OpenCVCameraConfig( # hand camera
-                index_or_path="/dev/video0",
+            "camera1": OpenCVCameraConfig( # hand camera camera1
+                index_or_path="/dev/video7",
                 fps=30,
                 width=640,
                 height=480,
             ),
-            "camera2": OpenCVCameraConfig( # side camera
-                index_or_path="/dev/video2",
+            "camera2": OpenCVCameraConfig( # side camera camera2
+                index_or_path="/dev/video9",
                 fps=30,
                 width=640,
                 height=480,
             ),
-            "camera3": RealSenseCameraConfig( # front camera
+            "camera3": RealSenseCameraConfig( # front camera camera3
                 serial_number_or_name="249322064122",
                 fps=15,
                 width=640,
